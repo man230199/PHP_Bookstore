@@ -1,7 +1,7 @@
 <?php
 $infoItem = $this->item;
-$cartLink = URL::createLink('frontend','user','ajaxChangeQuantity',['book_id' => $infoItem['id'],'price' => $infoItem['price'],'quantity' => 'new_quantity']);
-
+$cartLink = URL::createLink('frontend', 'user', 'ajaxChangeQuantity', ['book_id' => $infoItem['id'], 'price' => $infoItem['price'], 'quantity' => 'new_quantity']);
+$salePrice = $infoItem['price'] - ($infoItem['price'] * $infoItem['sale_off'] / 100);
 ?>
 
 <section class="section-b-space">
@@ -24,8 +24,8 @@ $cartLink = URL::createLink('frontend','user','ajaxChangeQuantity',['book_id' =>
                             <div class="col-lg-8 col-xl-8 rtl-text">
                                 <div class="product-right">
                                     <h2 class="mb-2"><?= $infoItem['name'] ?></h2>
-                                    <h4><del><?=  number_format($infoItem['price']) ?> đ</del><span> -<?= $infoItem['name'] ?>%</span></h4>
-                                    <h3><?= number_format($infoItem['price']) ?> đ</h3>
+                                    <h4><del><?= number_format($infoItem['price']) ?> đ</del><span> -<?= $infoItem['sale_off'] ?>%</span></h4>
+                                    <h3><?= number_format($salePrice) ?> đ</h3>
                                     <div class="product-description border-product">
                                         <h6 class="product-title">Số lượng</h6>
                                         <div class="qty-box">
@@ -35,7 +35,7 @@ $cartLink = URL::createLink('frontend','user','ajaxChangeQuantity',['book_id' =>
                                                         <i class="ti-angle-left"></i>
                                                     </button>
                                                 </span>
-                                                <input type="text" name="quantity" class="form-control input-number" value="1" data-url="<?=$buyLink?>">
+                                                <input type="text" name="quantity" class="form-control input-number" value="1" data-url="<?= $buyLink ?>">
                                                 <span class="input-group-prepend">
                                                     <button type="button" class="btn quantity-right-plus" data-type="plus" data-field="">
                                                         <i class="ti-angle-right"></i>
@@ -45,10 +45,10 @@ $cartLink = URL::createLink('frontend','user','ajaxChangeQuantity',['book_id' =>
                                         </div>
                                     </div>
                                     <div class="product-buttons">
-                                        <a href="#" data-url="<?= $cartLink?>" id="put-to-cart" class="btn btn-solid ml-0"><i class="fa fa-cart-plus"></i> Chọn mua</a>
+                                        <a href="#" data-url="<?= $cartLink ?>" id="put-to-cart" class="btn btn-solid ml-0"><i class="fa fa-cart-plus"></i> Chọn mua</a>
                                     </div>
                                     <div class="border-product">
-                                        <?=substr_replace($infoItem['short_description'],'[...]',500) ?>
+                                        <?= substr_replace($infoItem['short_description'], '[...]', 500) ?>
                                     </div>
                                 </div>
                             </div>
@@ -65,7 +65,7 @@ $cartLink = URL::createLink('frontend','user','ajaxChangeQuantity',['book_id' =>
                                     </ul>
                                     <div class="tab-content nav-material" id="top-tabContent" style="margin-top:20px">
                                         <div class="tab-pane fade show active ckeditor-content" id="top-home" role="tabpanel" aria-labelledby="top-home-tab">
-                                            <?= $infoItem['description']?>
+                                            <?= $infoItem['description'] ?>
                                         </div>
                                     </div>
                                 </div>
@@ -78,15 +78,15 @@ $cartLink = URL::createLink('frontend','user','ajaxChangeQuantity',['book_id' =>
                         <div class="collection-mobile-back">
                             <span class="filter-back"><i class="fa fa-angle-left" aria-hidden="true"></i> back</span>
                         </div>
-                        <?php include 'elements/service.php'?>
+                        <?php include 'elements/service.php' ?>
                     </div>
-                    
-                    <?php include 'elements/feature-in-bookinfo.php'?>
 
-               
+                    <?php include 'elements/feature-in-bookinfo.php' ?>
+
+
                 </div>
             </div>
-            <?php include 'elements/related-book.php'?>
+            <?php include 'elements/related-book.php' ?>
         </div>
     </div>
 </section>

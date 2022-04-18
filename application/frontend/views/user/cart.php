@@ -58,7 +58,7 @@ foreach ($items as $item) {
                     </div>
                 </div>
             </td>
-            <td><a href="%s" class="icon"><i class="ti-close"></i></a></td>
+            <td><a href="" class="icon"><i class="ti-close" id="remove-item" data-url="%s"></i></a></td>
             <td>
                 <h2 class="td-color text-lowercase" id="item_price_%s">%s đ</h2>
             </td>

@@ -6,7 +6,6 @@ $bookByCategoriesXhtml = '';
 $count = 0;
 
 foreach ($featureCategories as $key => $category) {
-   
     $class = ($key == 0)  ? 'current' : '';
     $activeTab = ($key == 0)  ? 'active default' : '';
     $featureCategoriesXhtml .= sprintf('
@@ -15,17 +14,19 @@ foreach ($featureCategories as $key => $category) {
            %s</a>
         </li>', $class, $category['id'], $category['id'], $category['name']);
     $bookByCategoriesXhtml .= sprintf('<div id="tab-category-%s" class="tab-content %s">
-        <div class="no-slider row tab-content-inside">',$category['id'],$activeTab);
+        <div class="no-slider row tab-content-inside">', $category['id'], $activeTab);
 
     include 'book_by_category.php';
-    
+
     $categoryID = $category['id'];
     $cateNameURL = URL::filterURL($category['name']);
-    $seeAllLink = URL::createLink('frontend','book','list',['category_id' => $categoryID],"$cateNameURL-$categoryID.html");
+    $seeAllLink = URL::createLink('frontend', 'book', 'list', ['category_id' => $categoryID], "$cateNameURL-$categoryID.html");
     $bookByCategoriesXhtml .= sprintf(
-    '</div>
+        '</div>
         <div class="text-center"><a href="%s" class="btn btn-solid">Xem tất cả</a></div>
-    </div>',$seeAllLink);
+    </div>',
+        $seeAllLink
+    );
 }
 
 

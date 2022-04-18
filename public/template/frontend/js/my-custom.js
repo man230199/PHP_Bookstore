@@ -146,12 +146,13 @@ $(document).on("change", ".ajax-input-number", function () {
     success: function (response) {
       if (response.status == "success") {
         let sum = 0;
-        var totalQuantity = 0;
+        let totalQuantity = 0;
         for (var item_price in response.cart.price) {
           sum += response.cart.price[item_price];
         }
         for (var quantity in response.cart.quantity) {
           totalQuantity += parseInt(response.cart.quantity[quantity]);
+          console.log(response.cart);
         }
         $("#total-price").text(
           Intl.NumberFormat("vi-VN", {
@@ -193,28 +194,54 @@ $(document).on("click", ".ti-shopping-cart", function () {
   });
 });
 
-$(".ti-close").on("click", function (e) {
+$(document).on("click", "#remove-item", function (e) {
   e.preventDefault();
-  parent = $(this).parent();
-  url = parent.attr("href");
+  var url = $(this).data("url");
+  var btn = e.target;
+  var total = $("#cart_quantity").text();
+  var parent = $("#cart_quantity").parent();
   Swal.fire({
-    title: "Bạn có chắc muốn bỏ sản phẩm khỏi giỏ hàng?",
-    icon: "error",
+    title: "Bạn chắn chứ?",
+    text: "Bạn có muốn bỏ sản phẩm khỏi giỏ hàng?",
+    icon: "warning",
     showCancelButton: true,
-    confirmButtonColor: "#d33",
-    cancelButtonColor: "#000",
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
     confirmButtonText: "Đồng ý",
     cancelButtonText: "Hủy",
   }).then((result) => {
     if (result.isConfirmed) {
-      // $.ajax({
-      //   url,
-      //   dataType: "json",
-      //   success: function(response) {
+      Swal.fire("Đã xóa", "Sản phẩm đã được bỏ khỏi giỏ hàng", "thành công");
+      $.ajax({
+        url,
+        dataType: "json",
+        success: function (response) {
+          $(btn).closest("tr").remove();
+          if (response.cart.quantity.length == 0) {
+            $("#cart-table").remove();
+            $(".cart-buttons").remove();
 
-      //   }
-      // });
-      window.location.href = parent.attr("href");
+            var h3 = $("#cart-container").append(
+              '<h3 style="text-align:center">Hiện tại không có sản phẩm nào trong giỏ hàng</h3>'
+            );
+          }
+          let quantity = 0;
+          let sum = 0;
+          for (var item in response.cart.quantity) {
+            quantity += parseInt(response.cart.quantity[item]);
+          }
+          for (var item in response.cart.price) {
+            sum += parseInt(response.cart.price[item]);
+          }
+          total = quantity;
+          $("#cart_sum").text(format_number(sum) + " đ");
+          $("#cart_quantity").text(total);
+          parent.notify("Đã cập nhật giỏ hàng", {
+            position: "bottom center",
+            className: "success",
+          });
+        },
+      });
     }
   });
 });

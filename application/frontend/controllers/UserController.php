@@ -39,7 +39,7 @@ class UserController extends Controller
         }
         Session::set('cart', $cart);
 
-        URL::redirect(URL::createLink($this->_arrParam['module'], 'user', 'cart', ['book_id' => $bookID],"cart.html"));
+        URL::redirect(URL::createLink($this->_arrParam['module'], 'user', 'cart', ['book_id' => $bookID], "cart.html"));
     }
 
     public function ajaxChangeQuantityAction()
@@ -49,18 +49,9 @@ class UserController extends Controller
         $bookID     = $this->_arrParam['book_id'];
         $price      = $this->_arrParam['price'];
 
-        if (empty($cart)) {
-            $cart['quantity'][$bookID]      = $this->_arrParam['quantity'];
-            $cart['price'][$bookID]         = $price * $cart['quantity'][$bookID];
-        } else {
-            if (key_exists($bookID, $cart['quantity'])) {
-                $cart['quantity'][$bookID]    += $this->_arrParam['quantity'];
-                $cart['price'][$bookID]         = $price * $cart['quantity'][$bookID];
-            } else {
-                $cart['quantity'][$bookID]      = $this->_arrParam['quantity'];
-                $cart['price'][$bookID]         = $price * $cart['quantity'][$bookID];
-            }
-        }
+        $cart['quantity'][$bookID]      = $this->_arrParam['quantity'];
+        $cart['price'][$bookID]         = $price * $cart['quantity'][$bookID];
+
         Session::set('cart', $cart);
         $quantityLink = URL::createLink($this->_arrParam['module'], $this->_arrParam['controller'], 'order', ['book_id' => $this->_arrParam['book_id'], 'quantity' => $this->_arrParam['quantity']]);
 
@@ -90,7 +81,7 @@ class UserController extends Controller
             URL::redirect(URL::createLink($this->_arrParam['module'], $this->_arrParam['controller'], 'login'));
         } else {
             $this->_model->saveItem($this->_arrParam, ['task' => 'submit-cart']);
-            URL::redirect(URL::createLink($this->_arrParam['module'], 'user', 'cart',null,'login.html'));
+            URL::redirect(URL::createLink($this->_arrParam['module'], 'user', 'cart', null, 'login.html'));
         }
     }
 
@@ -101,7 +92,7 @@ class UserController extends Controller
         unset($_SESSION['cart']['price'][$this->_arrParam['book_id']]);
 
         if (empty($_SESSION['cart']['quantity']) && empty($_SESSION['cart']['price'])) {
-            URL::redirect(URL::createLink('frontend', 'index', 'index',null,'index.html'));
+            URL::redirect(URL::createLink('frontend', 'index', 'index', null, 'index.html'));
             Session::delete('cart');
         }
         URL::redirect(URL::createLink('frontend', 'user', 'cart'));
@@ -122,7 +113,7 @@ class UserController extends Controller
                     'info'  => $result
                 ];
                 Session::set('user_info', $arrSession);
-                URL::redirect(URL::createLink($this->_arrParam['module'], 'dashboard', 'index',null,'danh-muc-quan-ly.html'));
+                URL::redirect(URL::createLink($this->_arrParam['module'], 'dashboard', 'index', null, 'danh-muc-quan-ly.html'));
             } else {
                 $this->_view->error = 'Thông tin đăng nhập không chính xác';
             }
@@ -133,7 +124,7 @@ class UserController extends Controller
     public function logoutAction()
     {
         Session::delete('user_info');
-        URL::redirect(URL::createLink($this->_arrParam['module'], $this->_arrParam['controller'], 'login',null,'login.html'));
+        URL::redirect(URL::createLink($this->_arrParam['module'], $this->_arrParam['controller'], 'login', null, 'login.html'));
     }
 
     public function registerAction()
