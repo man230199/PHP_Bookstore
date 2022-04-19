@@ -4060,6 +4060,7 @@ header {
       .theme-card .offer-slider .media .media-body .rating i:last-child {
         color: #dddddd; }
   .theme-card .offer-slider .media .media-body a h6 {
+    width: 80px;
     margin-right: 61px;
     line-height: 17px;
     margin-top: 5px;

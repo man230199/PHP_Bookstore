@@ -6,12 +6,15 @@ RewriteRule ^.*^$ - [NC,L]
 
 RewriteRule index.html index.php?module=frontend&controller=index&action=index
 RewriteRule book-list.html index.php?module=frontend&controller=book&action=list
+RewriteRule book-list-trang-([0-9]+)\.html index.php?module=frontend&controller=book&action=list&page=$1
+
 RewriteRule login.html index.php?module=frontend&controller=user&action=login
 RewriteRule register.html index.php?module=frontend&controller=user&action=register
 RewriteRule cart.html index.php?module=frontend&controller=user&action=cart
 RewriteRule history.html index.php?module=frontend&controller=user&action=history
 
 RewriteRule ([A-Za-z0-9_-]+)-([0-9]+)\.html index.php?module=frontend&controller=book&action=list&category_id=$2
+RewriteRule ([A-Za-z0-9_-]+)-([0-9]+)\-trang-([0-9]+)\.html index.php?module=frontend&controller=book&action=list&category_id=$2&page=$3
 
 RewriteRule ([A-Za-z0-9_-]+)/([A-Za-z0-9_-]+)-([0-9]+)-([0-9]+)\.html index.php?module=frontend&controller=book&action=bookInfo&category_id=$3&book_id=$4
 
@@ -24,6 +27,8 @@ RewriteRule quan-ly-danh-muc-sach.html index.php?module=backend&controller=categ
 RewriteRule quan-ly-sach.html index.php?module=backend&controller=book&action=index
 RewriteRule quan-ly-don-hang.html index.php?module=backend&controller=order&action=index
 
+
+
 RewriteRule them-moi-nhom-nguoi-dung.html index.php?module=backend&controller=group&action=form
 RewriteRule them-moi-nguoi-dung.html index.php?module=backend&controller=user&action=form
 RewriteRule them-moi-danh-muc-sach.html index.php?module=backend&controller=category&action=form
@@ -33,3 +38,9 @@ RewriteRule chinh-sua-nhom-nguoi-dung/([0-9]+)\.html index.php?module=backend&co
 RewriteRule chinh-sua-nguoi-dung/([0-9]+)\.html index.php?module=backend&controller=user&action=form&id=$1
 RewriteRule chinh-sua-danh-muc-sach/([0-9]+)\.html index.php?module=backend&controller=category&action=form&id=$1
 RewriteRule chinh-sua-sach/([0-9]+)\.html index.php?module=backend&controller=book&action=form&id=$1
+
+RewriteRule quan-ly-sach/([A-Za-z0-9_-]+).html index.php?module=backend&controller=book&action=index&search_value=$1
+RewriteRule quan-ly-danh-muc-sach/([A-Za-z0-9_-]+).html index.php?module=backend&controller=categoryk&action=index&search_value=$1
+RewriteRule quan-ly-nguoi-dung/([A-Za-z0-9_-]+).html index.php?module=backend&controller=user&action=index&search_value=$1
+RewriteRule quan-ly-nhom-nguoi-dung/([A-Za-z0-9_-]+).html index.php?module=backend&controller=group&action=index&search_value=$1
+RewriteRule quan-ly-don-hang/([A-Za-z0-9_-]+).html index.php?module=backend&controller=book&action=order&search_value=$1

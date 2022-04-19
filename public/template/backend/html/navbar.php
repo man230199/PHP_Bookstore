@@ -1,7 +1,7 @@
 <?php 
     //Session::init();
     $username = @Session::get('user_info')['info']['username'];
-    $logoutLink = URL::createLink($this->arrParam['module'],$this->arrParam['controller'],'logout');
+    $logoutLink = URL::createLink('frontend','user','logout');
 ?>
 <nav class="main-header navbar navbar-expand navbar-white navbar-light">
     <!-- Left navbar links -->

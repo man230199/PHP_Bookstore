@@ -81,6 +81,9 @@ $bookLink = URL::createLink($this->arrParam['module'], $this->arrParam['controll
                                         </div>
                                     </div>
                                     <div class="product-pagination">
+                                        <?php echo '<pre>';
+                                        print_r($arrParams);
+                                        echo '</pre>'; ?>
                                         <div class="theme-paggination-block">
                                             <div class="container-fluid p-0">
                                                 <div class="row">
@@ -89,7 +92,7 @@ $bookLink = URL::createLink($this->arrParam['module'], $this->arrParam['controll
                                                             <nav>
                                                                 <ul class="pagination">
                                                                     <?php
-                                                                    echo $this->pagination->FrontendPagination(URL::createLink($arrParams['module'], $arrParams['controller'], 'index'));
+                                                                    echo $this->pagination->FrontendPagination(URL::createLink($arrParams['module'], $arrParams['controller'], 'list', ['sort' => null, 'search_value' => null]));
                                                                     ?>
                                                                 </ul>
                                                             </nav>

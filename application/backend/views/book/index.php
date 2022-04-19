@@ -9,7 +9,7 @@ $searchBtn = HelperBackend::createButton('submit', 'btn btn-info', 'Search');
 
 $applyLink = URL::createLink($arrParams['module'], $arrParams['controller'], 'new_action');
 $indexLink = URL::createLink($arrParams['module'], $arrParams['controller'], 'index');
-$addLink   = URL::createLink($arrParams['module'], $arrParams['controller'], 'form',null,"them-moi-nguoi-dung.html");
+$addLink   = URL::createLink($arrParams['module'], $arrParams['controller'], 'form', null, "them-moi-sach.html");
 
 $specialValue       = ['default' => '- Select special -', 0 => 'No', 1 => 'Yes'];
 $selectSpecial      =  HelperBackend::cmsSelectboxNumeric("special", $specialValue, @$arrParams['special'], 'margin-left:5px;width:170px');
@@ -24,7 +24,7 @@ $selectCategory   = HelperBackend::cmsSelectbox("filter_category_id", $categoryA
 
 foreach ($items as $item) {
     $id = $item['id'];
-    $editLink       = URL::createLink($arrParams['module'], $arrParams['controller'], 'form', ['id' => $item['id']],"chinh-sua-nguoi-dung/$id.html");
+    $editLink       = URL::createLink($arrParams['module'], $arrParams['controller'], 'form', ['id' => $item['id']], "chinh-sua-nguoi-dung/$id.html");
     $status = ($item['status'] == 'active') ? 'btn btn-success' : 'btn btn-danger';
     $iconStatus = ($item['status'] == 'active') ? 'fa-check' : 'fa-minus';
     $special = ($item['special'] == 1) ? 'btn btn-success' : 'btn btn-danger';
@@ -132,6 +132,18 @@ $selected = 'selected = "selected"';
                                             <input type="hidden" name="module" value="<?= $arrParams['module'] ?>">
                                             <input type="hidden" name="controller" value="<?= $arrParams['controller'] ?>">
                                             <input type="hidden" name="action" value="index">
+                                            <?php
+                                            if (!empty($arrParams)) {
+                                                $inputParams = '';
+                                                foreach ($arrParams as $key => $value) {
+                                                    if ($key != 'pagination') {
+                                                        $inputParams .= '<input type="hidden" name="' . $key . '" value="' . $value . '">';
+                                                    }
+                                                }
+                                            }
+                                            echo $inputParams;
+                                            ?>
+
                                             <input type="text" name="search_value" class="form-control" value="<?php echo @$arrParams['search_value'] ?>">
                                             <span class="input-group-append">
                                                 <?php echo $searchBtn; ?>
